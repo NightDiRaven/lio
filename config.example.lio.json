@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": true
+  },
+  "tempalates": [
+    {
+      "name": "frontizer",
+      "order": 1,
+      "store": {
+        "test": 123
+      }
+    },
+    {
+      "name": "bundle",
+      "order": 2,
+      "templates": [
+        {
+          "name": "frontizer",
+          "order": "parallel"
+        },
+        {
+          "name": "webpack",
+          "order": "parallel"
+        },
+      ]
+    }
+  ]
+}

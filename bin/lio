@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+const Lio = require('../core/lio').rawr().doYourRAWR()
+
+

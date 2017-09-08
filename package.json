@@ -1,0 +1,70 @@
+{
+  "name": "lio",
+  "version": "0.0.1",
+  "description": "Frontend development tool (express, webpack, frontizer etc based)",
+  "keywords": [
+    "frontend",
+    "build",
+    "tool",
+    "dev",
+    "stylus",
+    "webpack",
+    "es6",
+    "vue",
+    "babel"
+  ],
+  "homepage": "https://github.com/NightDiRaven/lio",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NightDiRaven/lio.git"
+  },
+  "author": "Ivan Dolgov <nightdiraven@gmail.com>",
+  "engines": {
+    "node": ">=7.0.0",
+    "npm": ">=3.5.3"
+  },
+  "dependencies": {
+    "aliasify": "^2.0.0",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-latest": "*",
+    "babelify": "*",
+    "browserify": "^14.4.0",
+    "cli-table": "^0.3.1",
+    "columnify": "^1.5.4",
+    "cross-env": "^5.0.1",
+    "express": "^4.14.0",
+    "jstransformer-stylus": "*",
+    "kouto-swiss": "*",
+    "livereload": "^0.6.2",
+    "mz": "^2.6.0",
+    "ncp": "^2.0.0",
+    "pretty-cli": "0.0.14",
+    "prompt": "^1.0.0",
+    "pug": "^2.0.0-rc.2",
+    "serve-favicon": "^2.3.0",
+    "stack-trace": "0.0.10",
+    "stylus": "*",
+    "through": "^2.3.8",
+    "uglify-js": "^3.0.27",
+    "vueify": "*",
+    "watchify": "^3.7.0"
+  },
+  "preferGlobal": true,
+  "bin": {
+    "lio": "./bin/lio"
+  },
+  "devDependencies": {
+    "babel-preset-stage-2": "^6.22.0"
+  },
+  "bugs": {
+    "url": "https://github.com/NightDiRaven/lio/issues"
+  },
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
