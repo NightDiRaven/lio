@@ -1,6 +1,6 @@
 {
   "name": "lio",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Frontend development tool (express, webpack, frontizer etc based)",
   "keywords": [
     "frontend",

@@ -1,31 +1,19 @@
 const Command = require('../../../command')
-const type = require('../../../types/index')
 
 module.exports = class extends Command {
   get info () {
-    return 'Start lio server'
+    return 'Start frontizer server'
   }
 
-  handle (state) {
-    this.commander.commands.then(commands => {
-      commands = Object.keys(Object.keys({...commands}).reduce((o, key) => o[commands[key]] = key ? o : o, {}))
-        .map(i => this.commander.obtain(i))
-      this.drawCommands(commands)
-    })
+  before (execute) {
+    if (!this.env.config) {
+      this.env.warn('Frontizer not found in this directory, please init it first')
+    } else {
+      execute()
+    }
   }
 
-  drawCommands (commands) {
-    let ul = []
-    commands.forEach(command => {
-      if(command.title !== 'not-found') {
-        ul.push({type: 'command', title: command.title, aliases: command.aliases.filter(i => i !== command.title), info: command.info})
+  handle ({state}) {
 
-        Object.keys(command.props).forEach(key => {
-          let prop = command.props[key]
-          ul.push({type: 'prop', title: key, aliases: command.getPropWithAliases(key).filter(i => i !== key), info: prop.desc, def: prop.default})
-        })
-      }
-    })
-    this.console.commandFull({data: ul})
   }
 }

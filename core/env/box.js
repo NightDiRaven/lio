@@ -3,7 +3,7 @@ const [setProp] = [Symbol('get-prop')]
 const [setStore, setFill, setBox] = [Symbol('set-store'), Symbol('set-fill'), Symbol('set-box')]
 
 class Box {
-  constructor ({props}) {
+  constructor ({props} = {}) {
     let _store = {}
     let _load = {}
 
@@ -14,6 +14,8 @@ class Box {
     this[setProp]({name: 'fill'})
     this[setProp]({name: 'box'})
     this[setProp]({name: 'keys'}, {configurable: false, get: () => Object.keys(this)})
+    this[setProp]({name: 'list'}, {configurable: false, get: () => Object.keys(this).map(k => this[k])})
+    this[setProp]({name: 'has'}, {configurable: false, get: () => key => !!this.keys.find(i => i === key)})
 
     this.fill = props
   }
@@ -33,7 +35,6 @@ class Box {
 
     if(resolve !== undefined) {
       let value = () => {
-        console.log('Trying obtain ' + name)
         this[load][name] = value
         return (resolve instanceof Function) ? resolve(this) : resolve
       }

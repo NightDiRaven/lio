@@ -1,8 +1,10 @@
 const Command = require('../../../command')
 const type = require('../../../types/index')
-const path = require('path')
 
 module.exports = class extends Command {
+  get mode () {
+    return this.env.mode.param
+  }
   get info () {
     return 'Create a new frontizer project'
   }
@@ -86,11 +88,7 @@ module.exports = class extends Command {
     }
   }
 
-  env ({env}) {
-    env.fo = require('../../../../lib/fo')
-  }
-
-  handle (state, env) {
+  handle ({state}) {
     const root = state.root || process.cwd()
 
     // folders to create on initialization
@@ -101,14 +99,14 @@ module.exports = class extends Command {
     let sources = ['styles', 'js']
     // sources
     sources.forEach(type => {
-      let assetPath = path.join(state['source-path'], type)
+      let assetPath = this.env.path.join(state['source-path'], type)
       let createdFiles = []
       let unique = {}
 
       state[type].forEach(i => {
         let withoutExt = i.split('.').slice(0, -1).join('.')
         if (unique[withoutExt]) {
-          this.console.log(type + ' arg "' + i + '" was ignored because it is not unique')
+          this.env.console.write.log(type + ' arg "' + i + '" was ignored because it is not unique')
           return
         }
         unique[withoutExt] = true
@@ -127,7 +125,7 @@ module.exports = class extends Command {
       configFolders.push('data-path')
       folders.push('data')
     } else {
-      this.console.warning('Application server views and data folders ignored (--no-app flag is active)')
+      this.env.console.write.warning('Application server views and data folders ignored (--no-app flag is active)')
     }
 
     // CREATE FOLDERS
@@ -142,13 +140,13 @@ module.exports = class extends Command {
       }
     })
 
-    folders.push(path.join(state['source-path'], 'styles'))
-    folders.push(path.join(state['source-path'], 'js'))
-    folders.push(path.join(state['source-path'], 'fonts'))
-    folders.push(path.join(state['source-path'], 'static'))
+    folders.push(this.env.path.join(state['source-path'], 'styles'))
+    folders.push(this.env.path.join(state['source-path'], 'js'))
+    folders.push(this.env.path.join(state['source-path'], 'fonts'))
+    folders.push(this.env.path.join(state['source-path'], 'static'))
 
     for (let folder of folders) {
-      if (!env.fo.makeDirSync({path: path.join(root, folder)}, this)) return
+      if (!this.env.fm.makeDirSync({path: this.env.path.join(root, folder)}, this)) return
     }
 
     // CREATE FILES
@@ -179,11 +177,11 @@ module.exports = class extends Command {
         content: 'exports.title = \'Hello, world!\''
       })
     } else {
-      this.console.warning('Application server views and data files ignored (--no-app flag is active)')
+      this.env.console.write.warning('Application server views and data files ignored (--no-app flag is active)')
     }
 
     for(let file of files) {
-      if (!env.fo.makeFileSync({path: path.join(root, file.name), content:  file.content}, this)) return
+      if (!this.env.fm.makeFileSync({path: this.env.path.join(root, file.name), content:  file.content}, this)) return
     }
   }
 }
